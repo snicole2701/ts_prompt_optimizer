@@ -26,14 +26,9 @@ Users can select from the following languages to guide the AI’s input context 
 - Java
 - C#
 - C++
-- Go
-- Rust
-- SQL
+- Ruby
 - HTML
-- CSS
-- JSON
-- YAML
-- Markdown
+- PHP
 
 ## Prompt Generation Flow
 - Set Task Context
