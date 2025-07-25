@@ -1,0 +1,71 @@
+.task-form {
+  max-width: 600px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+select,
+textarea,
+input[type="file"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+ul {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+
+li {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 4px;
+  list-style-type: disc;
+}
+
+/* 🎯 Bonus Styling: File Preview */
+.file-preview {
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+.file-preview li {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+  list-style-type: square;
+}
+
+.generate-btn {
+  margin-top: 40px;
+  align-self: flex-end;
+  background-color: #1e88e5;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.generate-btn:hover {
+  background-color: #1565c0;
+}

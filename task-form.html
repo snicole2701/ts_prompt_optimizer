@@ -1,0 +1,118 @@
+<section class="task-form">
+  <!-- Task Purpose -->
+  <div class="form-group">
+    <label for="taskPurpose">Select Task Purpose</label>
+    <select id="taskPurpose" [(ngModel)]="taskPurpose">
+      <option value="debug">Debug/Fix</option>
+      <option value="feature">New Feature</option>
+      <option value="update">Change/Update</option>
+      <option value="test">Test</option>
+      <option value="translate">Translate</option>
+    </select>
+  </div>
+
+  <!-- Source Language -->
+  <div class="form-group">
+    <label for="sourceLanguage">Select File Language</label>
+    <select id="sourceLanguage" [(ngModel)]="sourceLanguage">
+      <option value="python">Python</option>
+      <option value="javascript">JavaScript</option>
+      <option value="typescript">TypeScript</option>
+      <option value="java">Java</option>
+      <option value="html">HTML</option>
+      <option value="csharp">C#</option>
+      <option value="cpp">C++</option>
+      <option value="php">PHP</option>
+      <option value="ruby">Ruby</option>
+    </select>
+  </div>
+
+  <!-- Code Files -->
+  <div class="form-group">
+    <label for="codeFiles">Select Files</label>
+    <input id="codeFiles" type="file" multiple (change)="handleFileSelection($event)" />
+    <ul class="file-preview" *ngIf="selectedFiles.length > 0">
+      <li *ngFor="let file of selectedFiles">
+        {{ file.file.name }}
+        <button type="button" class="remove-btn" (click)="removeFile(file.file.name)">×</button>
+        <div class="range-fields">
+          <label>From line</label>
+          <input type="number" [(ngModel)]="file.fromLine" min="1" />
+          <label>To line</label>
+          <input type="number" [(ngModel)]="file.toLine" min="1" />
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Paste Code Block -->
+  <div class="form-group">
+    <label for="pastedCode">If you do not want to attach a file, you can paste your code here:</label>
+    <textarea id="pastedCode" rows="12" [(ngModel)]="pastedCode" placeholder="Paste code block here"></textarea>
+  </div>
+
+  <!-- Goal Description -->
+  <div class="form-group">
+    <label for="goalDescription">Explain what it is you want to achieve</label>
+    <textarea id="goalDescription" rows="4" [(ngModel)]="goalDescription"></textarea>
+  </div>
+
+  <!-- Output Language -->
+  <div class="form-group">
+    <label for="outputLanguage">Desired Output Language</label>
+    <select id="outputLanguage" [(ngModel)]="outputLanguage">
+      <option value="python">Python</option>
+      <option value="javascript">JavaScript</option>
+      <option value="typescript">TypeScript</option>
+      <option value="java">Java</option>
+      <option value="html">HTML</option>
+      <option value="csharp">C#</option>
+      <option value="cpp">C++</option>
+      <option value="php">PHP</option>
+      <option value="ruby">Ruby</option>
+    </select>
+  </div>
+
+  <!-- Generate Prompt Button -->
+  <div class="form-actions">
+    <button class="generate-btn" (click)="generatePrompt()">Generate Prompt</button>
+  </div>
+
+  <!-- 📂 Code Chunk Navigator -->
+  <div *ngIf="generatedPromptChunks.length > 0" class="chunk-navigator">
+    <h3>📂 Structured Prompt Chunks</h3>
+
+    <div class="chunk-card">
+      <h4>
+        {{ generatedPromptChunks[currentChunkIndex].label }}
+        ({{ currentChunkIndex + 1 }} of {{ generatedPromptChunks.length }})
+      </h4>
+      <textarea
+        [value]="generatedPromptChunks[currentChunkIndex].body"
+        readonly
+        rows="12"
+      ></textarea>
+      <button
+        (click)="copyPrompt(generatedPromptChunks[currentChunkIndex].label + '\n' + generatedPromptChunks[currentChunkIndex].body)"
+      >
+        📋 Copy This Chunk
+      </button>
+    </div>
+
+    <div class="chunk-controls">
+      <button
+        *ngIf="currentChunkIndex < generatedPromptChunks.length - 1"
+        (click)="goToNextChunk()"
+      >
+        👉 Next
+      </button>
+
+      <button
+        *ngIf="currentChunkIndex === generatedPromptChunks.length - 1"
+        (click)="resetForm()"
+      >
+        ✅ Done
+      </button>
+    </div>
+  </div>
+</section>
